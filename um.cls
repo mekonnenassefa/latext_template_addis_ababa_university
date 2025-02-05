@@ -4,7 +4,7 @@
 %% **                                                **
 %% **    LaTeX Template for Thesis/Dissertation/FYP  **
 %% **                                                **
-%% **              Dr Jean-Paul Ebejer               **
+%% **            Prof. Jean-Paul Ebejer              **
 %% **            jean.p.ebejer@um.edu.mt             **
 %% **                                                **
 %% **     "Build something which will outlast you"   **
@@ -13,7 +13,7 @@
 %% ****************************************************
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{um}[2018/05/01-2022/03/17 v2.1 University of Malta, Dissertation/FYP/Thesis Template]
+\ProvidesClass{um}[2018/05/01-2024/11/27 v2.6 University of Malta, Dissertation/FYP/Thesis Template]
 
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{memoir}}
@@ -23,9 +23,20 @@
 
 %% **************** Packages (Start) *********************
 
-\RequirePackage[utf8]{inputenc}      % Required for inputting international characters
-\RequirePackage[T1]{fontenc}         % Output font encoding for international characters
-\RequirePackage{mathpazo}            % Use the Palatino font by default
+\RequirePackage[utf8]{inputenc}      		% Required for inputting international characters
+
+
+\RequirePackage[T1]{fontenc}         		% Output font encoding for international characters
+
+% Use this for an all-lato typeface document
+%\RequirePackage[defaultsans]{lato}          % Use the Lato font by default (sans)
+%\renewcommand*\familydefault{\sfdefault}    % Use sans serif font as the default
+
+%% OR the following for a serif body and sans serif headings doc
+\RequirePackage{mathpazo}					% Use the Palatino font by default (serif)
+\RequirePackage[defaultsans]{lato}          % Use the Lato font by default for a sans font
+
+
 \RequirePackage[english]{babel}      % Load babel if you're unsure about the default language - mostly to be safe
 \RequirePackage{xcolor}              % For named colors
 \RequirePackage{eso-pic}             % required to place huge uni logo at the back - on title page
@@ -35,7 +46,10 @@
 \RequirePackage[pdftex]{graphicx}    % For pictures
 \RequirePackage{amssymb}             % At least, for black squares in bullet list
 \RequirePackage[pdfusetitle]{hyperref}             % For hyperreferences
-\RequirePackage[authoryear,semicolon,sort]{natbib} % for (Ebejer, 2012; Alba, 2013) kind of references; removed 'square' option after viva examination comments
+% Use APA style
+\RequirePackage[style=apa,backend=biber]{biblatex} %% style can be "ieee", "chicago-authordate", etc.
+\renewcommand{\UrlFont}{\small\ttfamily}
+
 \RequirePackage{floatpag}			 % Used to hide page number on pages which contain only floats ... put a \thisfloatpagestyle{empty} in the float env, e.g. figure ...
 \RequirePackage{longtable}           % For very long tables
 \RequirePackage{pdflscape}			 % For landscape tables (instead of portrait)
@@ -44,11 +58,9 @@
 \usepackage[width=.95\textwidth]{caption} % set the width of the captions
 
 \RequirePackage[ruled]{algorithm2e}		% use algorithm2e instead of algorithm only, as the former is more customizable
-%%\RequirePackage{algpseudocode} 		% do not include this, as algorithm2e will include this as well
 
 \RequirePackage{courier}
 
-\usepackage[defaultsans]{lato}		 % Sans font to use
 \usepackage[printonlyused,withpage]{acronym}
 
 %% ****************** Packages (End) *********************
@@ -119,6 +131,7 @@
 
 \OnehalfSpacing                                  % One and a half line spacing
 
+
 \setlength{\headsep}{1.5cm}                      % Add space between the header and text
 
 \nouppercaseheads								 % Don't convert titles to Uppercase
@@ -162,8 +175,7 @@
 
 \renewcommand{\labelitemi}{\color{DissertationColor}\scriptsize$\blacksquare$}
 
-\addto{\captionsenglish}{\renewcommand{\bibname}{References}} % because we are using babel we need this
-                                                              % instead of just redefining bibname
+% Controls space between one reference and the next
 \setlength{\bibitemsep}{\onelineskip}
 
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}} % to set array stretch within tables
@@ -186,8 +198,6 @@
 \newcommand{\removelinebreaks}[1]{%
 	\begingroup\def\\{ }#1\endgroup}
 
-% Controls space between one reference and the next
-\setlength{\bibsep}{6.5pt}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}{Corollary}[theorem]
@@ -201,6 +211,9 @@
 
 
 %% *************** Environments (Start) ******************
+
+
+
 
 %% *** Title Page (Start) ***
 % background image
@@ -239,6 +252,9 @@
 \if@openright\cleardoublepage\else\clearpage\fi
 \endgroup}
 %% *** Title Page (End) ***
+
+\addto{\captionsenglish}{\renewcommand{\abstractname}{\Large\bfseries\sffamily\textcolor{DissertationColor}{Abstract}}}
+
 
 \newenvironment{acknowledgements}
 {\renewcommand{\abstractname}{\Large\bfseries\sffamily\textcolor{DissertationColor}{Acknowledgements}}\abstract}
